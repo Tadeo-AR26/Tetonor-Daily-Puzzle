@@ -20,7 +20,7 @@ function createWindow() {
   win.loadFile("index.html");
 
   // Abrir herramimientas de desarrollo 
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
 }
 
 app.whenReady().then(() => {

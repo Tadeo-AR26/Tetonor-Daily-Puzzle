@@ -11,8 +11,7 @@ document.querySelectorAll('.icon-link').forEach(link => {
             const { shell } = require('electron');
             shell.openExternal(url);
         } else {
-            // Si es la Web, dejamos que el navegador maneje el link normalmente
-            // (target="_blank" hará el resto)
+            // Si estoy en un browser normal, se abre con el target _blank
         }
     });
 });
@@ -33,7 +32,7 @@ document.querySelectorAll('.icon-link').forEach(link => {
         }
     }
 
-    // 3. Sobrescribimos Math.random globalmente
+    // Sobrescribimos Math.random globalmente
     const myRandom = seededRandom(seed);
     Math.random = myRandom;
 })();
@@ -66,6 +65,7 @@ for (let i = 0; i < totalPairs; i++) {
     })
 }
 
+
 // Here I prepare numbers for the grid 1 x 16
 const allNumbers = computedPairs.flatMap(pair => [pair.n1, pair.n2]).sort((a, b) => a - b);
 
@@ -75,26 +75,35 @@ const finalResults = [
     ...computedPairs.map(pair => pair.product)
 ].sort(() => Math.random() - 0.5); // Shuffle
 
+/* 
+console.group("🛠️ DEBUG: PUZZLE SOLUTION");
+console.log("--- Original Pairs (Sum & Product) ---");
+console.table(computedPairs);
+
+console.log("--- 1x16 Sorted Sequence (Solution) ---");
+console.log(allNumbers.join(" - "));
+
+console.log("--- 4x4 Grid Results (Shuffled) ---");
+console.log(finalResults);
+console.groupEnd();
+*/ 
+
 // Render
 const gridContainer16 = document.getElementById('grid-1x16');
 
-// 1. Creamos un array con los índices del 0 al 15
 const positions = Array.from({ length: 16 }, (_, i) => i);
 
-// 2. Mezclamos el array de posiciones (Algoritmo Fisher-Yates)
 for (let i = positions.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [positions[i], positions[j]] = [positions[j], positions[i]];
 }
 
-// 3. Elegimos los primeros 8 índices del array mezclado para que sean los visibles (estáticos)
 const staticIndices = positions.slice(0, 8);
 
 allNumbers.forEach((num, i) => {
     const div = document.createElement('div');
     div.className = 'grid-16';
 
-    // 4. Cambiamos la condición: ¿Está este índice actual en nuestra lista de elegidos?
     if (staticIndices.includes(i)) {
         // Se muestra como número fijo
         div.textContent = num;
@@ -104,7 +113,6 @@ allNumbers.forEach((num, i) => {
         const select = document.createElement('select');
         select.setAttribute('data-number', num);
         
-        // Mantenemos tu lógica de rangos min/max
         const min = (i > 0) ? allNumbers[i - 1] : 1;
         const max = (i < 15) ? allNumbers[i + 1] : 99;
 
@@ -182,15 +190,14 @@ function updateOptions4x4() {
 
 updateOptions4x4();
 
-// Check answers
 document.getElementById('check-btn').addEventListener('click', () => {
     const boxes16 = document.querySelectorAll('.grid-16 select');
     let boxes16Valid = true;
 
     boxes16.forEach(select => {
-        const userValue = select.value;
-        const correctValue = select.getAttribute('data-number');
-        if(isNaN(userValue) || userValue != correctValue) {
+        const userValue = parseInt(select.value);
+        const correctValue = parseInt(select.getAttribute('data-number'));
+        if (isNaN(userValue) || userValue !== correctValue) {
             boxes16Valid = false;
         }
     });
@@ -201,36 +208,40 @@ document.getElementById('check-btn').addEventListener('click', () => {
     boxes4x4.forEach(box => {
         const target = parseInt(box.querySelector('.result-4x4').textContent);
         const numSelects = box.querySelectorAll('.num-op-select');
-        const operatorSelect = box.querySelector('.operator-select');
+        const operator = box.querySelector('.operator-select').value;
 
         const num1 = parseInt(numSelects[0].value);
         const num2 = parseInt(numSelects[1].value);
-        const operator = operatorSelect.value;
         
-        if(isNaN(num1) || isNaN(num2)) {
+        if (isNaN(num1) || isNaN(num2)) {
             boxes4x4Valid = false;
             return;
         }
-        else {
-            const result = (operator === '+') ? (num1 + num2) : (num1 * num2);
-            if(result !== target) {
-                boxes4x4Valid = false;
-            }
+
+        const isValidMatch = computedPairs.some(pair => {
+            const numbersMatch = (num1 === pair.n1 && num2 === pair.n2) || 
+                                 (num1 === pair.n2 && num2 === pair.n1);
+            
+            const operationMatches = (operator === '+' && target === pair.sum) || 
+                                     (operator === '*' && target === pair.product);
+            
+            return numbersMatch && operationMatches;
+        });
+
+        if (!isValidMatch) {
+            boxes4x4Valid = false;
         }
     });
 
     if (boxes16Valid && boxes4x4Valid) {
-        clearInterval(timerInterval); // Detener el tiempo
-        saveStats(secondsElapsed);    // Guardar en cache
+        clearInterval(timerInterval); 
+        saveStats(secondsElapsed);    
 
         setTimeout(() => {
-            window.location.href = 'stats.html';
+            window.location.href = 'html/stats.html';
         }, 100);
-    
-    }
-    else {
-        console.log("Some answers are incorrect.");
-        alert("Some answers are incorrect. Try Again!");
+    } else {
+        alert("Some answers are incorrect. Check your pairs and try again!");
     }
 });
 
