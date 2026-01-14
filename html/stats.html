@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetonor Stats</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/congrats.css">
+</head>
+<body>
+    <header class="top-bar">
+            <div class="social-icons">
+                <a href="https://discordapp.com/users/254732868507533314" target="_blank" class="icon-link">
+                    <img src="../assets/icons/discordIcon.svg" alt="Discord">
+                </a>
+                <a href="https://github.com/Tadeo-AR26" target="_blank" class="icon-link">
+                    <img src="../assets/icons/githubIcon.svg" alt="GitHub">
+                </a>
+                <a href="https://x.com/TadeoA26" target="_blank" class="icon-link">
+                    <img src="../assets/icons/xIcon.svg" alt="X">
+                </a>
+            </div>
+        </header>
+    <div class="congrats-container">
+        <h1 class="neon-title">MISSION ACCOMPLISHED</h1>
+        <p class="subtitle">Daily Puzzle Solved!</p>
+
+        <div class="chart-wrapper">
+            <canvas id="statsChart"></canvas>
+        </div>
+
+        <button id="back-btn" onclick="window.location.href='../index.html'">Back to Grid</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/congrats.js"></script>
+</body>
+</html>

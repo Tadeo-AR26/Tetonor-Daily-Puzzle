@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetonor</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app">
+        <header class="top-bar">
+            <div class="header-info">
+                <span class="game-title">Tetonor Game</span>
+                <div class="meta-info">
+                    <span class="daily-label">Daily Puzzle: <span id="date-text"></span></span>
+                    <span class="timer-label">Time: <span id="timer-display">00:00</span></span>
+                </div>
+            </div>
+            <div class="social-icons">
+                <a href="https://discordapp.com/users/254732868507533314" target="_blank" class="icon-link">
+                    <img src="assets/icons/discordIcon.svg" alt="Discord">
+                </a>
+                <a href="https://github.com/Tadeo-AR26" target="_blank" class="icon-link">
+                    <img src="assets/icons/githubIcon.svg" alt="GitHub">
+                </a>
+                <a href="https://x.com/TadeoA26" target="_blank" class="icon-link">
+                    <img src="assets/icons/xIcon.svg" alt="X">
+                </a>
+                <button id="help-btn" class="icon-link help-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="help-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h3>How to Play</h3>
+                    <ul class="help-list">
+                        <li>Find the <strong>8 hidden number pairs</strong>. Each pair creates exactly one sum and one product on the grid.</li>
+                        <li>The <strong>16-number row</strong> must be completed in <strong>strict ascending order</strong> from left to right.</li>
+                        <li>Solve each grid box by combining two numbers from your bottom row with the correct operator (<strong>+</strong> or <strong>*</strong>).</li>
+                    </ul>
+                    <h3>Cómo Jugar</h3>
+                    <ul class="help-list">
+                        <li>Descubre los <strong>8 pares de números</strong> ocultos. Cada par genera exactamente una suma y un producto en la grilla.</li>
+                        <li>La <strong>hilera de 16 números</strong> debe completarse siguiendo un <strong>orden ascendente estricto</strong> de izquierda a derecha.</li>
+                        <li>Resuelve cada caja de la grilla combinando dos números de tu hilera inferior con su operador correspondiente (<strong>+</strong> o <strong>*</strong>).</li>
+                    </ul>
+                    <p class="daily-note">A new puzzle is generated every day at 00:00 (GMT-3). / Un nuevo puzzle se genera cada día a las 00:00 (GMT-3).</p>
+                </div>
+        </div>
+
+        </header>
+        <section class="main-game">
+            <div id="grid-4x4"></div>
+        </section>
+
+        <div id="grid-1x16"></div>
+
+        <div class="controls">
+            <button id="check-btn">Check Answers</button>
+            <button id="reset-btn">Reset</button>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>

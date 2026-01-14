@@ -1,0 +1,68 @@
+/* Hereda el body y fuentes de style.css automáticamente */
+
+.neon-title, .subtitle {
+    font-family: 'TiltNeon', sans-serif;
+}
+
+.congrats-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+.neon-title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: #F72585; /* Neon Pink */
+    text-shadow: 0 0 5px #F72585, 0 0 20px #F72585;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.subtitle {
+    color: #4CC9F0; /* Sky Aqua */
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 5px #4CC9F0;
+}
+
+/* Contenedor para que el gráfico sea responsive pero no gigante */
+.chart-wrapper {
+    width: 100%;
+    max-width: 800px; /* Ancho máximo del gráfico */
+    background: rgba(5, 5, 5, 0.5); /* Fondo semitransparente */
+    border: 2px solid #4361EE;
+    box-shadow: 0 0 15px rgba(67, 97, 238, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#back-btn {
+    /* Reusamos estilos de tus botones anteriores */
+    padding: 15px 40px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: transparent;
+    color: #4CC9F0;
+    border: 2px solid #4CC9F0;
+    box-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#back-btn:hover {
+    background-color: #4CC9F0;
+    color: #050505;
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.6);
+}
+
+.top-bar {
+    margin-top: 2vh;
+    display: flex;
+    justify-content: flex-end;
+}
